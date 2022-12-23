@@ -66,86 +66,88 @@ class _HomeScreenState extends State<HomeScreen>
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Container(
-            height: 337.h,
-            width: 375.w,
-            color: kPryBlue,
-            child: Column(
-              children: [
-                Text(
-                  "Wallet Balance",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14.sp,
-                    height: 16.71.toLineHeight(14),
-                    color: kPryWhite,
-                  ),
-                ),
-                16.toColumnSizedBox(),
-                Text.rich(
-                  TextSpan(
-                    text: "₦25,456.",
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 337.h,
+              width: 375.w,
+              color: kPryBlue,
+              child: Column(
+                children: [
+                  Text(
+                    "Wallet Balance",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 36.sp,
-                      height: 42.96.toLineHeight(36),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                      height: 16.71.toLineHeight(14),
                       color: kPryWhite,
                     ),
+                  ),
+                  16.toColumnSizedBox(),
+                  Text.rich(
+                    TextSpan(
+                      text: "₦25,456.",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 36.sp,
+                        height: 42.96.toLineHeight(36),
+                        color: kPryWhite,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: "00",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 30.sp,
+                            height: 35.8.toLineHeight(30),
+                            color: kPryWhite,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  74.toColumnSizedBox(),
+                  TransactionType(),
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      TextSpan(
-                        text: "00",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 30.sp,
-                          height: 35.8.toLineHeight(30),
-                          color: kPryWhite,
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Wallet",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp,
+                            height: 24.toLineHeight(14),
+                            color: kPryWhite,
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Card",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp,
+                            height: 24.toLineHeight(14),
+                            color: kPryWhite,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),
-                74.toColumnSizedBox(),
-                TransactionType(),
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Wallet",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14.sp,
-                          height: 24.toLineHeight(14),
-                          color: kPryWhite,
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Card",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14.sp,
-                          height: 24.toLineHeight(14),
-                          color: kPryWhite,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const TransactionHistory(),
-        ],
+            const TransactionHistory(),
+          ],
+        ),
       ),
       bottomNavigationBar: const BottomNavBar(),
     );
