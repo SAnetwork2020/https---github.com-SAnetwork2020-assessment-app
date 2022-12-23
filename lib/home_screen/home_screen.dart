@@ -169,7 +169,7 @@ class TransactionType extends StatelessWidget {
               ),
               8.toColumnSizedBox(),
               Text(
-                transaction[index]("icon"),
+                "${transaction[index]["title"]}",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
