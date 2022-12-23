@@ -3,8 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vast_assessment/color.dart';
 import 'package:vast_assessment/extension.dart';
+import 'package:vast_assessment/home_screen/transaction_type.dart';
 
 import '../gen/assets.gen.dart';
+import 'bottom_navbar.dart';
+import 'transaction_history.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,7 +18,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  int _selectedIndex = 0;
   late TabController tabController;
   static const List<Tab> tabs = <Tab>[
     Tab(text: "Wallet"),
@@ -43,6 +45,10 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // bottom: TabBar(
+        //   controller: tabController,
+        //   tabs: tabs,
+        // ),
         elevation: 0,
         backgroundColor: kPryBlue,
         title: Text(
@@ -63,162 +69,86 @@ class _HomeScreenState extends State<HomeScreen>
       ),
       body: Column(
         children: [
-          TabBarView(
-            children: [
-              Container(
-                height: 337.h,
-                width: 375.w,
-                color: kPryBlue,
-                child: Column(
-                  children: [
-                    Text(
-                      "Wallet Balance",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.sp,
-                        height: 16.71.toLineHeight(14),
-                        color: kPryWhite,
-                      ),
+          Container(
+            height: 337.h,
+            width: 375.w,
+            color: kPryBlue,
+            child: Column(
+              children: [
+                Text(
+                  "Wallet Balance",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14.sp,
+                    height: 16.71.toLineHeight(14),
+                    color: kPryWhite,
+                  ),
+                ),
+                16.toColumnSizedBox(),
+                Text.rich(
+                  TextSpan(
+                    text: "₦25,456.",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 36.sp,
+                      height: 42.96.toLineHeight(36),
+                      color: kPryWhite,
                     ),
-                    16.toColumnSizedBox(),
-                    Text.rich(
+                    children: [
                       TextSpan(
-                        text: "₦25,456.",
+                        text: "00",
                         style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 36.sp,
-                          height: 42.96.toLineHeight(36),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 30.sp,
+                          height: 35.8.toLineHeight(30),
                           color: kPryWhite,
                         ),
-                        children: [
-                          TextSpan(
-                            text: "00",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 30.sp,
-                              height: 35.8.toLineHeight(30),
-                              color: kPryWhite,
-                            ),
-                          ),
-                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                74.toColumnSizedBox(),
+                TransactionType(),
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Wallet",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.sp,
+                          height: 24.toLineHeight(14),
+                          color: kPryWhite,
+                        ),
                       ),
                     ),
-                    74.toColumnSizedBox(),
-                    TransactionType(),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Card",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.sp,
+                          height: 24.toLineHeight(14),
+                          color: kPryWhite,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              ),
-            ],
-          ),
-          TabBar(
-            controller: tabController,
-            tabs: tabs,
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: onTap,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        selectedItemColor: kPryBlue,
-        unselectedItemColor: kLightGrey,
-        selectedLabelStyle: TextStyle(
-            color: kPryBlue,
-            fontWeight: FontWeight.w600,
-            fontSize: 10.sp,
-            height: 12.19.toLineHeight(10)),
-        unselectedLabelStyle: TextStyle(
-            color: kLightGrey,
-            fontWeight: FontWeight.w600,
-            fontSize: 10.sp,
-            height: 12.19.toLineHeight(10)),
-        items: [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              Assets.icons.home.path,
-              color: kLightGrey,
+              ],
             ),
-            label: "Home",
           ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(Assets.icons.savings.path),
-            label: "Savings",
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(Assets.icons.cashback.path),
-            label: "Cashback",
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(Assets.icons.more.path),
-            label: "More",
-          ),
+          const TransactionHistory(),
         ],
       ),
-    );
-  }
-
-  void onTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-}
-
-class TransactionType extends StatelessWidget {
-  TransactionType({
-    super.key,
-  });
-  List<Map<String, String>> transaction = [
-    {
-      "icon": Assets.icons.moneyTransfer.path,
-      "title": "Mony Transfer",
-    },
-    {
-      "icon": Assets.icons.otherPayment.path,
-      "title": "Other Payments",
-    },
-    {
-      "icon": Assets.icons.fundWallet.path,
-      "title": "Fund Wallet",
-    },
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        ...List.generate(
-          3,
-          (index) => Column(
-            children: [
-              Container(
-                height: 48.w,
-                width: 48.w,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: kPryWhite,
-                ),
-                child: Center(
-                  child: SvgPicture.asset(transaction[index]["icon"]!),
-                ),
-              ),
-              8.toColumnSizedBox(),
-              Text(
-                "${transaction[index]["title"]}",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12.sp,
-                  height: 14.32.toLineHeight(12),
-                  color: kPryWhite,
-                ),
-              ),
-            ],
-          ),
-        )
-      ],
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }
