@@ -18,26 +18,26 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  late TabController tabController;
-  static const List<Tab> tabs = <Tab>[
-    Tab(text: "Wallet"),
-    Tab(text: "Cards"),
-  ];
+  // late TabController tabController;
+  // static const List<Tab> tabs = <Tab>[
+  //   Tab(text: "Wallet"),
+  //   Tab(text: "Cards"),
+  // ];
 
   @override
   void initState() {
-    tabController = TabController(
-      initialIndex: 0,
-      length: tabs.length,
-      vsync: this,
-    );
+    // tabController = TabController(
+    //   initialIndex: 0,
+    //   length: tabs.length,
+    //   vsync: this,
+    // );
 
     super.initState();
   }
 
   @override
   void dispose() {
-    tabController.dispose();
+    // tabController.dispose();
     super.dispose();
   }
 
@@ -53,7 +53,6 @@ class _HomeScreenState extends State<HomeScreen>
         backgroundColor: kPryBlue,
         title: Text(
           "Hello Ese",
-          // textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 16.sp,
