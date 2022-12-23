@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(),
           home: const HomeScreen(),
         );

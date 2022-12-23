@@ -13,8 +13,31 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
+  late TabController tabController;
+  static const List<Tab> tabs = <Tab>[
+    Tab(text: "Wallet"),
+    Tab(text: "Cards"),
+  ];
+
+  @override
+  void initState() {
+    tabController = TabController(
+      initialIndex: 0,
+      length: tabs.length,
+      vsync: this,
+    );
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,60 +47,73 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: kPryBlue,
         title: Text(
           "Hello Ese",
-          textAlign: TextAlign.center,
+          // textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 16.sp,
             height: 19.09.toLineHeight(16),
           ),
         ),
-        leading: SvgPicture.asset(Assets.icons.moneyTransfer.path),
+        actions: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: SvgPicture.asset(Assets.icons.notification.path),
+          ),
+        ],
       ),
       body: Column(
         children: [
-          Container(
-            height: 337.h,
-            width: 375.w,
-            color: kPryBlue,
-            child: Column(
-              children: [
-                Text(
-                  "Wallet Balance",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14.sp,
-                    height: 16.71.toLineHeight(14),
-                    color: kPryWhite,
-                  ),
-                ),
-                16.toColumnSizedBox(),
-                Text.rich(
-                  TextSpan(
-                    text: "₦25,456.",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 36.sp,
-                      height: 42.96.toLineHeight(36),
-                      color: kPryWhite,
+          TabBarView(
+            children: [
+              Container(
+                height: 337.h,
+                width: 375.w,
+                color: kPryBlue,
+                child: Column(
+                  children: [
+                    Text(
+                      "Wallet Balance",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.sp,
+                        height: 16.71.toLineHeight(14),
+                        color: kPryWhite,
+                      ),
                     ),
-                    children: [
+                    16.toColumnSizedBox(),
+                    Text.rich(
                       TextSpan(
-                        text: "00",
+                        text: "₦25,456.",
                         style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 30.sp,
-                          height: 35.8.toLineHeight(30),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 36.sp,
+                          height: 42.96.toLineHeight(36),
                           color: kPryWhite,
                         ),
+                        children: [
+                          TextSpan(
+                            text: "00",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 30.sp,
+                              height: 35.8.toLineHeight(30),
+                              color: kPryWhite,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    74.toColumnSizedBox(),
+                    TransactionType(),
+                  ],
                 ),
-                74.toColumnSizedBox(),
-                TransactionType(),
-              ],
-            ),
+              ),
+            ],
+          ),
+          TabBar(
+            controller: tabController,
+            tabs: tabs,
           ),
         ],
       ),
@@ -135,16 +171,16 @@ class TransactionType extends StatelessWidget {
   });
   List<Map<String, String>> transaction = [
     {
-      "title": Assets.icons.moneyTransfer.path,
-      "text":"Mony Transfer",
+      "icon": Assets.icons.moneyTransfer.path,
+      "title": "Mony Transfer",
     },
     {
-      "title": Assets.icons.otherPayment.path,
-      "text":"Other Payments",
+      "icon": Assets.icons.otherPayment.path,
+      "title": "Other Payments",
     },
     {
-      "title": Assets.icons.fundWallet.path,
-      "text":"Fund Wallet",
+      "icon": Assets.icons.fundWallet.path,
+      "title": "Fund Wallet",
     },
   ];
 
@@ -165,7 +201,8 @@ class TransactionType extends StatelessWidget {
                   color: kPryWhite,
                 ),
                 child: Center(
-                    child: SvgPicture.asset(Assets.icons.moneyTransfer.path)),
+                  child: SvgPicture.asset(transaction[index]["icon"]!),
+                ),
               ),
               8.toColumnSizedBox(),
               Text(
